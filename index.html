@@ -187,3 +187,4 @@ async function saveResponse(idx,timeout){if(submitted.has(idx))return;submitted.
 async function exportCSV(){let rows=[['grupo','participante','ensayo','etapa','respuesta','respuesta_esperada','correcta','timeout']];for(let r of rooms){let x=results[r.id]||{};for(let a of (x.answers||[])){let p=(x.participants||[]).find(q=>q.id===a.participant_id);rows.push([r.group_label,p?.participant_code||'',a.trial_index+1,stages[a.stage].name,a.response,a.expected,a.correct?1:0,a.timeout?1:0])}}let csv=rows.map(r=>r.map(v=>'"'+String(v??'').replaceAll('"','""')+'"').join(';')).join('\n');let blob=new Blob(['\ufeff'+csv],{type:'text/csv;charset=utf-8'}),url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download='resultados_90_alumnos.csv';a.click();URL.revokeObjectURL(url)}
 let params=new URLSearchParams(location.search);if(params.get('code')){$('pCode').value=params.get('code');showTab('participant')}
 </script></body></html>
+
